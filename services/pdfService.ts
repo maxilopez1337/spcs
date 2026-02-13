@@ -214,7 +214,10 @@ export const pdfService = {
         });
         const pdf = new jsPDF({ orientation: 'landscape', unit: 'mm', format: 'a4' });
         pdf.addImage(imgData, 'PNG', 0, 0, 297, 210);
-        window.open(pdf.output('bloburl'), '_blank');
+        // Automatyczne pobieranie pliku zamiast otwierania w nowej karcie (lepsze wsparcie mobile)
+        const safeName = `${userData.firstName}_${userData.lastName}`.replace(/ /g, '_');
+        const fileName = `${safeName}_Podglad_Certyfikat.pdf`;
+        pdf.save(fileName);
     } catch (e) { 
         console.error(e); 
         alert("Błąd generowania podglądu PDF. Spróbuj ponownie.");

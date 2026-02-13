@@ -16,14 +16,20 @@ const App = () => {
   const [lastResult, setLastResult] = useState<ExamResult | null>(null);
 
   useEffect(() => {
-    storage.init();
-    const savedUser = storage.getCurrentUser();
-    if (savedUser) {
-      setUser(savedUser);
-      if (savedUser.role === 'ADMIN') {
-        setCurrentPage('ADMIN');
+    (async () => {
+      storage.init();
+      // Wymuś ładowanie domyślnego szablonu certyfikatu jeśli nie istnieje
+      if (!storage.getCertTemplate()) {
+        await storage.loadDefaultTemplateFromAssets();
       }
-    }
+      const savedUser = storage.getCurrentUser();
+      if (savedUser) {
+        setUser(savedUser);
+        if (savedUser.role === 'ADMIN') {
+          setCurrentPage('ADMIN');
+        }
+      }
+    })();
   }, []);
 
   const handleLogin = (loggedUser: User) => {
