@@ -57,6 +57,14 @@ export const ResultsPage: React.FC<ResultsPageProps> = ({ result, onBack, onRetr
 
   const handleDownloadMistakes = () => {
       pdfService.generateMistakesReport(result);
+      setShowErrorAnalysis(false);
+      // Przewiń do przycisku zakończenia sesji (jeśli istnieje)
+      setTimeout(() => {
+        const endBtn = document.getElementById('end-session-btn');
+        if (endBtn) {
+          endBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 300);
   };
 
   // Filtracja błędnych odpowiedzi do analizy
@@ -197,6 +205,7 @@ export const ResultsPage: React.FC<ResultsPageProps> = ({ result, onBack, onRetr
               )}
 
               <button 
+                id="end-session-btn"
                 onClick={onBack}
                 className="text-[#605E5C] text-xs font-bold uppercase tracking-widest hover:text-[#002147] transition-colors py-4"
               >
