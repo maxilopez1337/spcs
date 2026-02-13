@@ -60,7 +60,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onLogin, onStartExam }) =>
             managerEmail: registeredUser.managerEmail,
             score: 0,
             passed: false,
-            date: new Date().toLocaleDateString('pl-PL') + ' ' + new Date().toLocaleTimeString('pl-PL'),
+            date: new Date().toLocaleDateString('pl-PL'),
             answersLog: [{
                 questionId: 'SECURITY_BREACH',
                 questionText: 'NARUSZENIE INTEGRALNOŚCI / PORZUCENIE SESJI',
